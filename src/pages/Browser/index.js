@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Search from "./components/Search";
+import AdvancedSearch from "./components/AdvancedSearch";
+
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -15,8 +17,8 @@ const Container = styled.div`
     grid-area: 1 / 1 / 2 / 2;
   }
   .advanced {
-    background: pink;
-
+    background: #616161;
+    width: 100%;
     grid-area: 2 / 1 / 3 / 2;
   }
   .content {
@@ -29,7 +31,7 @@ export default function Browser() {
   return (
     <Container>
       <Search />
-      <div className="advanced"></div>
+      <AdvancedSearch />
       <div className="content"></div>
     </Container>
   );
