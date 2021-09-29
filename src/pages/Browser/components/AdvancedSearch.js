@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Container = styled.div`
   position: relative;
   transition: 0.3s;
+  margin-bottom: 35px;
   ${({ expanded }) => {
     if (expanded) {
       return "height: 500px;";
@@ -35,12 +36,38 @@ const Container = styled.div`
   .expander {
     color: #fff;
     position: absolute;
-    bottom: -20px;
-    left: 45%;
+    bottom: -52px;
+    left: 50%;
+    height: 35px;
+    transform: translate(-50%, -50%);
     background: #616161;
     padding: 5px;
+    width: 400px;
+    p {
+      text-align: center;
+    }
     &:hover {
       cursor: pointer;
+    }
+    &:before {
+      content: "";
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-bottom: 35px solid #fff;
+      border-right: 35px solid transparent;
+      position: absolute;
+    }
+    &:after {
+      content: "";
+      right: 0;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-bottom: 35px solid #fff;
+      border-left: 35px solid transparent;
+      position: absolute;
     }
   }
 `;
@@ -54,7 +81,7 @@ export default function AdvancedSearch() {
         <div className="stats"></div>
       </div>
       <div onClick={() => setExpanded(!expanded)} className="expander">
-        <p>Show Advanced Search</p>
+        <p>{expanded ? "Hide" : "Show"} Advanced Search</p>
       </div>
     </Container>
   );
