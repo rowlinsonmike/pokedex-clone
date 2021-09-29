@@ -1,36 +1,30 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+import styled from "styled-components";
+import Browser from "./pages/Browser";
+
+const AppContainer = styled.div`
+  margin: auto 10%;
+  height: 100vh;
+  background: #fff;
+`;
 
 export default function App() {
   return (
-    <div>
+    <AppContainer>
       <Switch>
         <Route exact path="/" component={Browser} />
         <Route exact path="/pokemon/:pokemon" component={Pokemon} />
         <Route path="*" component={FourOhFour} />
       </Switch>
-    </div>
-  );
-}
-
-function Browser() {
-  return (
-    <div>
-      <h2>Browser</h2>
-    </div>
+    </AppContainer>
   );
 }
 
 function Pokemon() {
   return (
     <div>
-      <h2>Pokemon</h2>
+      <span>Pokemon</span>
     </div>
   );
 }
