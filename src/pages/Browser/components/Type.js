@@ -18,6 +18,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     color: #fff;
+    cursor: pointer;
   }
   .type,
   .weakness {
