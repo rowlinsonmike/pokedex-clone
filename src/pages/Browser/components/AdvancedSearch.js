@@ -1,21 +1,43 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Type from "./Type";
+import Ability from "./Ability";
+import VizSelect from "./VizSelect";
+import ExpandArrow from "../../../assets/logout.png";
+import Search from "../../../assets/search.png";
+
+// :::'###:::::'######:::'######::'########:'########::'######::
+// ::'## ##:::'##... ##:'##... ##: ##.....::... ##..::'##... ##:
+// :'##:. ##:: ##:::..:: ##:::..:: ##:::::::::: ##:::: ##:::..::
+// '##:::. ##:. ######::. ######:: ######:::::: ##::::. ######::
+//  #########::..... ##::..... ##: ##...::::::: ##:::::..... ##:
+//  ##.... ##:'##::: ##:'##::: ##: ##:::::::::: ##::::'##::: ##:
+//  ##:::: ##:. ######::. ######:: ########:::: ##::::. ######::
+// ..:::::..:::......::::......:::........:::::..::::::......:::
+
+import Rayquaza from "../../../assets/rayquaza.png";
+import Charizard from "../../../assets/charizard.png";
+import Pikachu from "../../../assets/pikachu.png";
+import Blastoise from "../../../assets/blastoise.png";
+import Totadile from "../../../assets/totadile.png";
+import Snorlax from "../../../assets/snorlax.png";
+
 const Container = styled.div`
   position: relative;
   transition: 0.3s;
   margin-bottom: 35px;
   ${({ expanded }) => {
     if (expanded) {
-      return "height: 500px;";
+      return "height: 600px;";
     } else {
       return "height: 40px;";
     }
   }}
   .selectors {
+    margin-top: 2rem;
     display: grid;
     grid-template-columns: 1fr repeat(2, 1.2fr) 2fr 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: 5fr 2fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     height: 100%;
@@ -24,8 +46,8 @@ const Container = styled.div`
       opacity: ${expanded ? 1 : 0};
       transition: all ${expanded ? 150 : 50}ms linear ${expanded ? 150 : 50}ms;
     `}
-    .type-1,
-    .type-2 {
+    .col-1,
+    .col-2 {
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -33,7 +55,7 @@ const Container = styled.div`
         margin-top: 8px;
       }
     }
-    .type-1 {
+    .col-1 {
       grid-area: 1 / 2 / 2 / 3;
       h3 {
         color: #fff;
@@ -45,7 +67,7 @@ const Container = styled.div`
         align-items: center;
       }
     }
-    .type-2 {
+    .col-2 {
       margin-left: 2rem;
       grid-area: 1 / 3 / 2 / 4;
       h3 {
@@ -57,9 +79,9 @@ const Container = styled.div`
         align-items: center;
       }
     }
-    .stats {
+    .col-3 {
+      margin-left: 4rem;
       grid-area: 1 / 4 / 2 / 5;
-      background: blue;
     }
   }
   .expander {
@@ -101,6 +123,77 @@ const Container = styled.div`
   }
 `;
 
+const NumberRange = styled.div`
+  grid-area: 2 / 2 / 3 / 4;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding: 16px 0;
+  span {
+    color: #fff;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+  }
+  .number-range-input-ctn {
+    display: flex;
+    input {
+      display: inline;
+      width: 75px;
+      height: 40px;
+      padding: 8px;
+      border-radius: 5px;
+      outline: none;
+      border: none;
+    }
+    span {
+      height: 40px;
+      width: 26px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+`;
+const OptionButtons = styled.div`
+  grid-area: 2 / 4 / 3 / 5;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  & > * + * {
+    margin-left: 10px;
+  }
+  button {
+    transition: background 300ms;
+    height: 53px;
+    width: 137px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    img {
+      margin-right: 5px;
+    }
+    &:nth-child(1) {
+      background: #a4a4a4;
+      &:hover {
+        background: #808080;
+      }
+    }
+    &:nth-child(2) {
+      background: #ed6b2f;
+      &:hover {
+        background: #e64901;
+      }
+    }
+  }
+`;
+
 const TypePills1 = [
   { name: "Bug", color: "#729f3f,#729f3f" },
   { name: "Dragon", color: "#53a4cf, #f16e57" },
@@ -128,22 +221,56 @@ export default function AdvancedSearch() {
   return (
     <Container expanded={expanded} className="advanced">
       <div className="selectors">
-        <div className="type-1">
+        <div className="col-1">
           <h3>
             <span>Type & Weakness</span>
           </h3>
           {TypePills1.map(Type)}
         </div>
-        <div className="type-2">
+        <div className="col-2">
           <h3>
             <span>T = Type W = Weakness</span>
           </h3>
           {TypePills2.map(Type)}
         </div>
-        <div className="stats"></div>
+        <div className="col-3">
+          <Ability />
+          <VizSelect title="Height" options={[Pikachu, Charizard, Rayquaza]} />
+          <VizSelect title="Weight" options={[Totadile, Blastoise, Snorlax]} />
+        </div>
+        <NumberRange className="number-range">
+          <span>Number Range</span>
+          <div className="number-range-input-ctn">
+            <input type="text" placeholder="1" />
+            <span>-</span>
+            <input type="text" placeholder="898" />
+          </div>
+        </NumberRange>
+        <OptionButtons>
+          <button>Reset</button>
+          <button>
+            <img height="15px" src={Search} alt="search" />
+            <label>Search</label>
+          </button>
+        </OptionButtons>
       </div>
       <div onClick={() => setExpanded(!expanded)} className="expander">
-        <p>{expanded ? "Hide" : "Show"} Advanced Search</p>
+        <p>
+          {expanded ? "Hide" : "Show"} Advanced Search
+          <span>
+            <img
+              height="17.5px"
+              width="17.5px"
+              src={ExpandArrow}
+              alt="expand-search"
+              style={{
+                transform: expanded ? "" : "rotate(180deg)",
+                marginLeft: "7.5px",
+                filter: "brightness(0) invert(1)",
+              }}
+            />
+          </span>
+        </p>
       </div>
     </Container>
   );
