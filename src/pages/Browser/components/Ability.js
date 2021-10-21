@@ -17,6 +17,7 @@ const Container = styled.div`
   }
   .dropdown {
     position: relative;
+    cursor: pointer;
     .selected {
       border-radius: 5px;
       display: flex;
@@ -24,25 +25,28 @@ const Container = styled.div`
       background-color: #313131;
       color: #ffffff;
       label {
+        cursor: pointer;
         display: flex;
         align-items: center;
         width: 320px;
         height: 41px;
         margin-left: 10px;
         & > * + * {
+          cursor: pointer;
           margin-left: 10px;
         }
       }
       .arrow {
+        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 36px;
         height: 41px;
-        cursor: pointer;
       }
     }
     .content {
+      cursor: pointer;
       display: ${({ expand }) => (expand ? "flex" : "none")};
       background-color: #a4a4a4;
       position: absolute;
@@ -74,7 +78,7 @@ export default function Ability() {
       <h3>
         <span>Ability</span>
       </h3>
-      <div className="dropdown">
+      <div onClick={() => setExpand(!expand)} className="dropdown">
         <div className="selected">
           <label>
             <img
@@ -85,7 +89,7 @@ export default function Ability() {
             />
             <span>All</span>
           </label>
-          <div onClick={() => setExpand(!expand)} className="arrow">
+          <div className="arrow">
             <span>
               {" "}
               <img

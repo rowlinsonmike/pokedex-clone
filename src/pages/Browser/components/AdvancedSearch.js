@@ -5,6 +5,7 @@ import Ability from "./Ability";
 import VizSelect from "./VizSelect";
 import ExpandArrow from "../../../assets/logout.png";
 import Search from "../../../assets/search.png";
+import Close from "../../../assets/close.png";
 
 // :::'###:::::'######:::'######::'########:'########::'######::
 // ::'## ##:::'##... ##:'##... ##: ##.....::... ##..::'##... ##:
@@ -30,9 +31,71 @@ const Container = styled.div`
     if (expanded) {
       return "height: 600px;";
     } else {
-      return "height: 40px;";
+      return "height: 100px;";
     }
   }}
+  .selectors-min {
+    ${({ expanded }) =>
+      `
+      opacity: ${!expanded ? 1 : 0};
+      transition: all ${!expanded ? 150 : 50}ms linear ${
+        !expanded ? 150 : 50
+      }ms;
+    `}
+    display: flex;
+    align-items: center;
+    height: 90px;
+    margin: 0 20%;
+  }
+  .tag-ctn {
+    height: 40px;
+    width: 130px;
+    background: #a4a4a4;
+    &:hover {
+      background: #8b8b8b;
+    }
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    .tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      p {
+        font-weight: bold;
+        letter-spacing: 1.5px;
+        span {
+          font-weight: inherit;
+          letter-spacing: inherit;
+        }
+        & > span:nth-child(1) {
+          color: #313131;
+        }
+        & > span:nth-child(2) {
+          color: #fff;
+          margin-left: 3px;
+        }
+      }
+      button {
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #313131;
+        outline: none;
+        border: none;
+        border-radius: 3px;
+        margin-left: 10px;
+        img {
+          width: 15px;
+          height: 15px;
+        }
+      }
+    }
+  }
   .selectors {
     margin-top: 2rem;
     display: grid;
@@ -220,6 +283,21 @@ export default function AdvancedSearch() {
   const [expanded, setExpanded] = useState(false);
   return (
     <Container expanded={expanded} className="advanced">
+      {!expanded && (
+        <div className="selectors-min">
+          <div className="tag-ctn">
+            <div className="tag">
+              <p>
+                <span>Height:</span>
+                <span>short</span>
+              </p>
+              <button>
+                <img src={Close} alt="close" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="selectors">
         <div className="col-1">
           <h3>
